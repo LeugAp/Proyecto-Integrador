@@ -1,0 +1,39 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %} 
+
+{% block content %} 
+
+<main
+  class="h-75 container text-light d-flex align-items-center justify-content-center"
+>
+  <div class="text-center">
+    <h1 class="fw-bold m-3 p-0">Bienvenido a SafeZone</h1>
+    <p class="m-0 p-0">Descubre tu ruta segura en un instante</p>
+    <p class="m-0 p-0">
+      Revisa tu ruta de evacuación y navega por el campus con confianza
+    </p>
+    <p class="m-5">
+      <a
+        href="#"
+        class="fw-bold fs-5 link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+        >Obtener Ruta</a
+      >
+    </p>
+  </div>
+    <script>
+    navigator.geolocation.getCurrentPosition(
+        function(position){
+            var latitude = position.coords.latitude
+            var longitude = position.coords.longitude
+
+            window.location.href = '/route/?latitude='+ latitude +'&longitude='+ longitude
+        },
+        function(error){
+            alert('No se puede calcular la ruta si no activa la localizacion')
+            window.location.href = '/'
+        }
+    )
+    </script>
+</main>
+
+{% endblock %}
+

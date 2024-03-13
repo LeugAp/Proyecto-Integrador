@@ -1,0 +1,33 @@
+{% extends 'model.html' %} {% block content %}
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Restableces Contraseña</h1>
+
+  <div class="container-fluid bg-light pt-5 pb-5">
+    <div class="container" style="height: 64.4vh;display: flex; flex-direction: column; justify-content: center">
+      <h1 class="text-start mb-5">Restablecer Contraseña</h1>
+      <form method="post" class="row g-3 text-start">
+        {% csrf_token %}
+        <div class="col-12">
+          <label for="password" class="form-label">Nueva Contraseña</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+              <div class="text-danger">{{ form.password.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <label for="confirm_password" class="form-label">Confirmar Contraseña</label>
+          {{ form.confirm_password }}
+          {% if form.confirm_password.errors %}
+              <div class="text-danger">{{ form.confirm_password.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+          <button type="submit" class="btn btn-dark">Restableces Contraseña</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

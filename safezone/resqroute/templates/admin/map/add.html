@@ -1,0 +1,32 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+    <main class="container-fluid text-center p-0">
+        <h1 class="fw-bold text-white m-5">Mapa</h1>
+        <div class="container-fluid bg-light">
+            <div class="container text-start pt-5 pb-5">
+                <form method="post" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <label for="name" class="form-label">Nombre</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger ">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <label for="img" class="form-label">Imagen</label>
+                        {{ form.img }}
+                        {% if form.img.errors %}
+                            <div class="text-danger ">{{ form.img.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-outline-success">{{ btn }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

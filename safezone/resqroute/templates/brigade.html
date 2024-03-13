@@ -1,0 +1,24 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %} 
+{% block content %}
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Funciones Brigadas</h1>
+
+  <div class="container-fluid bg-light">
+    <div class="container text-start pt-4 pb-4">
+        {% for brigade in brigades %}
+            <h2 class="">{{ brigade.name }}</h2>
+            <ul class="list-unstyled">
+                {% for function in functions_brigades %}
+                    {% if function.brigade == brigade %}
+                        <li class="list-group-item">{{ function.function }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+  </div>
+
+</main>
+
+{% endblock %}

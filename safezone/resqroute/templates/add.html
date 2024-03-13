@@ -1,0 +1,79 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+    <main class="container-fluid text-center p-0">
+        <h1 class="fw-bold text-white m-5">Personal</h1>
+        <div class="container-fluid bg-light">
+            <div class="container text-start pt-5 pb-5">
+                <form method="post" class="row g-3">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <h3>Datos Personales</h3>
+                      </div>
+                    <div class="col-12">
+                        <label for="dni" class="form-label">Cédula</label>
+                        {{ form.dni }}
+                        {% if form.dni.errors %}
+                            <div class="text-danger ">{{ form.dni.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <label for="name" class="form-label">Nombre</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger ">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <label for="last_name" class="form-label">Apellido</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="text-danger ">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <h3>Contacto</h3>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger ">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <label for="phone_number" class="form-label">Número de Celular</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">+593</span>
+                            {{ form.phone_number }}
+                        </div>
+                        {% if form.phone_number.errors %}
+                            <div class="text-danger ">{{ form.phone_number.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <h3>Tipo</h3>
+                    </div>
+                    <div class="col-12">
+                        <label for="staff_type" class="form-label">Tipo de Personal</label>
+                        {{ form.staff_type }}
+                        {% if form.staff_type.errors %}
+                            <div class="text-danger ">{{ form.staff_type.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <label for="faculty" class="form-label">Facultad</label>
+                        {{ form.faculty }}
+                        {% if form.faculty.errors %}
+                            <div class="text-danger ">{{ form.faculty.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-primary">{{ btn }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

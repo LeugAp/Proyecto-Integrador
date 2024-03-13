@@ -1,0 +1,86 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %} 
+{% block content %}
+
+<script>
+  function confirm_delete(id) {
+    Swal.fire({
+      title: "¿Estás Seguro?",
+      text: "Esta acción es permanente",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Eliminar",
+      confirmButtonColor: "#dc3545",
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        window.location.href = "/delete-map/" + id + "/";
+      }
+    });
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Mapas</h1>
+
+  <div class="container-fluid bg-light">
+    {% if messages %} {% for m in messages %}
+    <script>
+      Swal.fire({
+        title: "Exitosamente",
+        text: "{{ m }}",
+        icon: "success",
+      });
+    </script>
+    {% endfor %} {% endif %}
+
+    <div class="container pt-5 pb-5">
+      <div class="row d-flex justify-content-between">
+        <form class="col-9 col-sm-9 col-lg-8 d-flex" role="search" method="GET">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Nombre"
+            aria-label="Search"
+            name="search_name"
+          />
+          <button class="btn btn-outline-dark" type="submit">Buscar</button>
+        </form>
+        <a
+          class="col-3 col-sm-2 col-lg-1 btn btn-outline-success"
+          href="{% url 'add_map' %}"
+        >
+          Agregar
+        </a>
+      </div>
+
+      <section class="gallery pt-5 pb-5">
+        <div class="container-fluid">
+          <div class="row gy-4 justify-content-center">
+            {% for map in maps %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="gallery-item h-100">
+                <img src="../../media/{{ map.img }}" class="img-fluid" alt="" />
+                <div
+                  class="gallery-links d-flex align-items-center justify-content-center"
+                >
+                  <a href="{% url 'update_map' map.id %}" title="{{ map.name }}" class="glightbox preview-link">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <a href="#" onclick="confirm_delete({{ map.id }})" title="{{ map.name }}" class="glightbox preview-link">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </a>
+                </div>
+                {{ map.name }}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+{% endblock %}

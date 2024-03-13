@@ -1,0 +1,35 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Grafo</h1>
+
+  <div class="container-fluid bg-light">
+    <div class="container pt-5 pb-5">
+      <div class="row d-flex justify-content-end">
+        <div class="col-2">
+          <div class="dropdown d-inline-block">
+            <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Grafo
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'graph' %}">Conexiones</a></li>
+              <li><a class="dropdown-item" href="{% url 'graph_map' %}">Mapa</a></li>
+              <li><a class="dropdown-item" href="{% url 'graph_node' %}">Grafico</a></li>
+            </ul>
+          </div>
+          <a
+            class=" btn btn-outline-success d-inline-block"
+            href="{% url 'add_graph' %}"
+          >
+            Agregar
+          </a>
+        </div>
+      </div>
+      <div class="container mt-5 mb-5">
+        {{ map|safe }}
+    </div>
+  </div>
+</main>
+
+{% endblock %}

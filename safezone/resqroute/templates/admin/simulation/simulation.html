@@ -1,0 +1,54 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Simular Ruta de Evacuación</h1>
+
+  <div class="container-fluid bg-light">
+
+    <form class="container pt-5 pb-4 text-start" method="post">
+        {% csrf_token %}
+        <label for="" class="mb-2 ps-1">Seleccione un Nodo:</label>
+        <div class="row">
+            <div class="col-11">
+                <select class="form-select" name="nodo">
+                    {% for node in nodes %}
+                        {% if loop.index == 0 %}
+                            <option selected value="{{ node.id }}">{{ node.name }}</option>
+                        {% endif %}
+                        <option value="{{ node.id }}">{{ node.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-outline-success col-1">Calcular</button>    
+        </div>
+    </form>
+
+    <div class="container pt-4 pb-4">
+      <div class="row">
+        <div class="col-sm-3 mb-2 mt-2">
+          <ul class="list-unstyled">
+            <li class="fs-1 pb-3 pt-3">Nodos</li>
+            <li class="fs-5 mb-4 mt-4">
+              <i class="fa-solid fa-location-dot text-danger"></i> {{ start }}
+            </li>
+            {% for node in middle %}
+                <li class="fs-5 mb-4 mt-4">
+                    <i class="fa-solid fa-location-dot text-primary"></i> {{ node }}
+                </li>
+            {% endfor %}
+            <li class="fs-5 mb-4 mt-4">
+              <i class="fa-solid fa-location-dot text-success"></i> {{ end }}
+            </li>
+            <li class="fs-5">Distancia Total {{ distance }}m</li>
+          </ul>
+        </div>
+        <div class="col-sm-9">
+          <div>{{ map|safe }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

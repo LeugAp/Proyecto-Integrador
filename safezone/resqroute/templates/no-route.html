@@ -1,0 +1,12 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{%block content %}
+
+<main
+  class="h-75 container text-light d-flex align-items-center justify-content-center"
+>
+  <div class="text-center">
+    <h1 class="fw-bold m-3 p-0">No hay Rutas disponibles</h1>
+  </div>
+</main>
+
+{% endblock %}

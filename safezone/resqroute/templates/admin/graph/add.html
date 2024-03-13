@@ -1,0 +1,32 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Grafo</h1>
+
+  <div class="container-fluid bg-light">
+    <div class="container pt-5 pb-5">
+      <form method="post" action=""  class="container text-start">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-12">
+            <label for="source" class="form-label">Origen</label>
+            {{ form.source }}
+          </div>
+          <div class="col-12">
+            <label for="destination" class="form-label">Destino</label>
+            {{ form.destination }}
+          </div>
+          <div class="col-6">
+            {{ form.weight }}
+          </div>
+          <div class="col-12 d-flex justify-content-center">
+            <button class="btn btn-outline-success">Conectar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

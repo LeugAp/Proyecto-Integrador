@@ -1,0 +1,66 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Grafo</h1>
+
+    <div class="container-fluid mt-5 mb-5 pt-5 pb-5 bg-light">
+      <div class="row d-flex justify-content-end">
+        <div class="col-2">
+          <div class="dropdown d-inline-block">
+            <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Grafo
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'graph' %}">Conexiones</a></li>
+                <li><a class="dropdown-item" href="{% url 'graph_map' %}">Mapa</a></li>
+                <li><a class="dropdown-item" href="{% url 'graph_node' %}">Grafico</a></li>
+            </ul>
+          </div>
+          <a
+            class=" btn btn-outline-success d-inline-block"
+            href="{% url 'add_graph' %}"
+          >
+            Agregar
+          </a>
+        </div>
+      </div>
+      <div class="container-fluid mt-5 mb-5 vh-100 ">
+        <div id="network" class="h-100"></div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            var nodos = {{ nodos|safe }}
+            var aristas = {{ aristas|safe }}
+        
+            console.log(nodos)
+            console.log(aristas)
+            
+            var nodes = nodos
+            var edges = aristas
+        
+            var container = document.getElementById('network');
+        
+            var data = {
+              nodes: nodes,
+              edges: edges,
+            }
+        
+            var options = {
+              nodes: {
+                shape: 'dot',
+                size: 16,
+              }
+            }
+        
+            var network = new vis.Network(container, data, options)
+        
+          });
+        </script>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

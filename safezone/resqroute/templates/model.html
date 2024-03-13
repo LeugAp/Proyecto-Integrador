@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SafeZone</title>
+    <link rel="shortcut icon" href="{% static 'faicon.ico' %}" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static '/css/main.css' %}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      defer
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://kit.fontawesome.com/33dda385d1.js" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body class="vh-100">
+    <!-- Header Nav -->
+    <header>
+      <nav class="navbar navbar-expand-lg bg-transparent">
+        <div class="container">
+          <a class="navbar-brand text-light" href="{% url 'index' %}">SafeZone</a>
+          <button
+            class="navbar-toggler border-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            style="outline: none;box-shadow: none;"
+          >
+            <span class="navbar-toggler-icon" style="filter: invert(1)"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link text-light"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  href=""
+                  >Plan Emergencia</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="{% url 'function' %}">Brigadas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="{% url 'map' %}">Mapas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="{% url 'geo' %}">Rutas</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link text-light"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                  href="#"
+                  >Iniciar Sesión</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main content -->
+    {% block content %}{% endblock %}
+
+    <!-- Modal PDF -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <iframe
+            src="https://www.unl.edu.ec/sites/default/files/servicios-tecnologicos/2022-05/PLAN%20EMERGENCIA%20UNL.pdf"
+            frameborder="0"
+            style="width: 100%; height: 80vh"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-md">
+        <!-- Contenido del modal -->
+        <div class="modal-content p-5">
+          <form action="" method="post" class="row">
+            {% csrf_token %}
+            <div class="mb-4 text-center">
+              <h3>Iniciar Sesión</h3>
+            </div>
+            <div class="mb-3">
+              <label for="form-label">Usuario</label>
+              <input type="text" class="form-control" name="username" />
+            </div>
+            <div class="mb-3">
+              <label for="form-label">Contraseña</label>
+              <input type="password" class="form-control" name="password" />
+            </div>
+            <a href="{% url 'send_email_reset_password' %}" class="pb-3">¿Olvidaste la contraseña?</a>
+            <div class="mt-4">
+              <button class="btn btn-dark w-100 ">Iniciar Sesión</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

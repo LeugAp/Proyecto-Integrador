@@ -1,0 +1,88 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+<script>
+
+  function confirm_delete(id){
+    Swal.fire({
+      "title": "¿Estás Seguro?",
+      "text": "Esta acción es permanente",
+      "icon": "warning",
+      "showCancelButton": true,
+      "confirmButtonText": "Eliminar",
+      "confirmButtonColor": "#dc3545",
+    })
+    .then(function(result){
+      if(result.isConfirmed){
+        window.location.href = "/delete-brigade/" + id +"/"
+      }
+    })
+  }
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<main class="container-fluid text-center p-0">
+  <h1 class="fw-bold text-white m-5">Funciones Brigadas</h1>
+  <div class="container-fluid bg-light">
+
+    {% if messages %} {% for m in messages %}
+    <script>
+      Swal.fire({
+        title: "Exitosamente",
+        text: "{{ m }}",
+        icon: "success",
+      });
+    </script>
+    {% endfor %} {% endif %}
+
+    <div class="container pt-5 pb-5">
+      <h2>{{ brigade.name }}</h2>
+      <form method="post" action=""  class="container text-start">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-12 col-lg-12">
+            {{ form.brigade }}
+          </div>
+          <div class="col-9 col-lg-11">
+            {{ form.function }}
+          </div>
+          <div class="col-2 col-lg-1">
+            <button class="btn btn-outline-success">Guardar</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="container mt-5 mb-5">
+        <h2 class="mb-4">Funciones</h2>
+        {% for item in items %}
+        <div class="row pt-2 pb-2 mt-3 mb-3 shadow-sm rounded">
+          <div class="col-9 col-sm-10 text-start">
+            {{ item.function }}
+          </div>
+          <div class="col-1">
+            <a class="text-warning" href="{% url 'update_brigade' item.id %}"
+              ><i class="fa-solid fa-pen-to-square"></i
+            ></a>
+          </div>
+          <div class="col-1">
+            <a
+              class="text-danger"
+              href="#"
+              onclick="confirm_delete({{ item.id }})"
+              ><i class="fa-regular fa-trash-can"></i
+            ></a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        {% include '../../util/paginator.html' %}
+      </div>
+
+    </div>
+  </div>
+</main>
+
+{% endblock %}

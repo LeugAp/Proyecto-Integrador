@@ -1,0 +1,46 @@
+{% extends user.is_authenticated|yesno:'authenticated.html,model.html' %}
+{% block content %}
+
+    <main class="container-fluid text-center p-0">
+        <h1 class="fw-bold text-white m-5">Nodo</h1>
+        <div class="container-fluid bg-light vh-100">
+            <div class="container text-start pt-5 pb-5">
+                <form method="post" class="row g-3">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <label for="name" class="form-label">Nombre</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger ">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <label for="latitude" class="form-label">Latitud</label>
+                        {{ form.latitude }}
+                        {% if form.latitude.errors %}
+                            <div class="text-danger ">{{ form.latitude.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <label for="longitude" class="form-label">Longitud</label>
+                        {{ form.longitude }}
+                        {% if form.longitude.errors %}
+                            <div class="text-danger ">{{ form.longitude.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <label for="is_safe" class="form-label">Zona Segura</label>
+                        {{ form.is_safe }}
+                        {% if form.is_safe.errors %}
+                            <div class="text-danger ">{{ form.is_safe.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-outline-success">{{ btn }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
